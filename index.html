@@ -1,0 +1,570 @@
+
+<!DOCTYPE html> 
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24NEWS</title>
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+        header {
+            background-color: white;
+            text-align: center;
+        }
+        nav {
+            background-color: #289165;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.5rem;
+            position: relative;
+        } nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            position: relative;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav li {
+            position: relative;
+        }
+        nav a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: #02683d;
+        }
+        nav ul li ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #289165;
+            border-radius: 5px;
+            display: none;
+        }
+        nav ul li:hover ul {
+            display: block;
+        }
+        nav ul li ul {
+    z-index: 1000; 
+    position: absolute; 
+    top: 100%; 
+    left: 0;
+    background-color: #289165; 
+    border-radius: 5px;
+    display: none; 
+        }
+
+        nav ul li ul a {
+            padding: 10px;
+            color: white;
+        }
+        main {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        article {
+            width: 70%;
+            background-color: #f9f9f9;
+            padding: 10px;
+        }
+        aside {
+            width: 25%;
+            background-color: #f1f1f1;
+            padding: 10px;
+        }
+        footer {
+            background-color: #02683d;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .email-subscribe input[type="email"] {
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .email-subscribe button {
+            background-color: #289165;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        } #popup-menu button {
+            background: #0078d7;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin-top: 2rem;
+            cursor: pointer;
+            
+        }#popup-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: #333;
+            color: white;
+            padding: 2rem;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: right 0.6s ease-in-out;
+            z-index: 1001;
+        }
+         #popup-menu.active {
+            right: 0;
+        }
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #0078d7;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+    </style>
+    <style>
+      /* Базовые стили остаются как есть */
+
+/* --- Адаптивность для ноутбуков (до 1024px) --- */
+@media (max-width: 1024px) {
+    main {
+        flex-direction: column;
+    }
+
+    article, aside {
+        width: 100%;
+    }
+
+    nav ul {
+        gap: 15px;
+    }
+
+    nav ul li ul {
+        position: static;
+    }
+}
+
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    nav ul {
+        display: none; 
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav.active ul {
+        display: flex; 
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    main {
+        padding: 0;
+    }
+
+    article img {
+        width: 100%;
+    }
+
+    .email-subscribe {
+        text-align: center;
+    }
+
+    .email-subscribe input[type="email"],
+    .email-subscribe button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    header img {
+        width: 80%; 
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    nav a {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    article h1, article h4, article h2, article h3 {
+        font-size: 16px;
+    }
+
+    aside {
+        text-align: center;
+    }
+
+    aside ul {
+        padding: 0;
+    }
+
+    aside ul li a {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px ) {
+  
+}@media(min-width:275px){
+
+}
+
+        .x{
+           color: white;
+           text-decoration: none;
+        } .share-container {
+            position: relative;
+        }
+
+        .share-btn,
+        .close-btn {
+            padding: 5px 10px;
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+
+        .share-btn:hover,
+        .close-btn:hover {
+            background-color: #005bb5;
+        }
+
+        .share-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            background-color: white;
+            color: black;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 100;
+            padding: 10px;
+        }
+
+        .share-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            text-decoration: none;
+            color: black;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .share-menu a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .share-menu img {
+            width: 20px;
+            height: 20px;
+        }.cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+            .card:hover {
+                opacity: 1;
+            }
+
+            .card img {
+                width: 100%;
+                border-radius: 5px;
+                transition: transform 0.3s ease;
+            }
+
+                .card img:hover {
+                    transform: scale(1.05);
+                }
+
+            .card h3 {
+                margin-top: 15px;
+                font-size: 20px;
+                color: black;
+            }aside{
+                text-decoration: none;
+                text-decoration: dashed;
+            }aside a{
+                text-decoration: none;
+            }.wer {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 250px; /* Укажите ширину карточки */
+    margin: 10px auto;
+}
+
+.wer img {
+    width: 100%; /* Изображение растягивается по ширине карточки */
+    border-radius: 10px;
+    margin-bottom: 10px;
+    max-height: 150px; 
+        object-fit: cover; 
+}
+
+.wer h3 {
+    font-size: 16px;
+    color: #000;
+    margin-top: 10px;
+    line-height: 1.4;
+}.io{
+    text-decoration: none;
+    color: white;
+}
+
+    </style>
+    
+</head>
+<body>
+<header>
+    <img src="https://albania.mom-gmr.org/uploads/tx_lfrogmom/media/8023-1206_import.png" alt="logo">
+</header>
+<nav>
+    <ul>
+        
+            <ul>
+        <li>
+            <a href="https://tengrinews.kz/">News</a>
+            <ul>
+                <li><a href="https://tengrinews.kz/find-out/">Актуалное</a></li>
+                <li><a href="https://tengrinews.kz/read/">Статьи</a></li>
+                <li><a href="https://tengrisport.kz/">24 Sport </a></li>
+                <li><a href="https://tengrinews.kz/tengri-education/">24 Education </a></li>
+                <li><a href="https://tengrinews.kz/spec/">Спецпроекты</a></li>
+                <li><a href="https://tengriauto.kz/">24 Auto </a></li>
+            
+            </ul>
+        </li>
+        <a href="https://tengrinews.kz/mixnews/">Life</a></li>
+        <li><a href="https://tengritravel.kz">Travel</a></li>
+        <li><a href="https://tengrinews.kz/tengriguide/">GUIDE</a></li>
+    </ul>
+</nav>
+<button class="menu-btn" onclick="togglePopup()">Меню</button>
+
+    <div id="popup-menu">
+       <br> <a href="file:///C:/Users/user/.vscode/form.html#" class="x"><h1>Регистрация</h1></a>
+       <br> <a href="https://market.agronovosti.ru/" class="x"><i><h3>Доска объявлений</h3></i></a>
+        <br><a href="https://agronovosti.ru/rubrika/vystavki-i-konferenczii/" class="x"><i><h3>Выставки и конференции</h3></i></a><br><a href="https://agronovosti.ru/rubrika/czifrovizacziya/" class="x"><i><h3>Цифровизация АПК</h3></i></a><br><a href="https://agronovosti.ru/rubrika/ekologiya/" class="x"><i><h3>Экология</h3></i></a>
+          <div class="share-container">
+            <button class="share-btn" onclick="toggleShareMenu()">Поделиться</button>
+            <div class="share-menu" id="shareMenu">
+                <a href="#" onclick="shareFacebook()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                    Facebook
+                </a>
+                <a href="#" onclick="shareTwitter()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Twitter-logo.svg" alt="Twitter">
+                    Twitter
+                </a>
+                <a href="#" onclick="shareWhatsApp()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+                    WhatsApp
+                </a>
+                <button class="close-btn" onclick="toggleShareMenu()">Закрыть</button>
+            </div>
+        </div>
+    
+        <script>
+            function toggleShareMenu() {
+                const menu = document.getElementById("shareMenu");
+                menu.style.display = menu.style.display === "block" ? "none" : "block";
+            }
+    
+            function shareFacebook() {
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+            }
+    
+            function shareTwitter() {
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent("Check this out!");
+                window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+            }
+    
+            function shareWhatsApp() {
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent("Check this out!");
+                window.open(`https://api.whatsapp.com/send?text=${text} ${url}`, '_blank');
+            }
+        </script>
+          <button onclick="togglePopup()">Закрыть</button>
+        <script>function togglePopup() {
+            const popupMenu = document.getElementById("popup-menu");
+            popupMenu.classList.toggle("active");
+        }
+        
+        document.querySelector(".menu-btn").addEventListener("click", function () {
+            document.querySelector("nav").classList.toggle("active");
+        });
+        </script>
+        
+    </div>
+<main>
+
+    <article>
+        
+   
+        <section id="cards"class="cards">
+            <div class="card">
+                <a href="https://tengrinews.kz/kazakhstan_news/prezident-tokaev-pozdravil-shavkata-rahmonova-pobedoy-ufc-556263/"class="qwe"><img src="https://static.tengrinews.kz/userdata/news/2024/news_556263/thumb_b/photo_495517.jpeg.webp" width="450px"></a>
+                <h3>Президент Токаев поздравил Шавката Рахмонова с победой в UFC</h3>
+            </div>
+            <div class="card">
+                <a href="https://tengrisport.kz/tnsport/obnarodovan-gonorar-rahmonova-za-pobedu-nad-ianom-gerri-556271/"><img src="https://static.tengrinews.kz/userdata/news/2024/news_556271/thumb_m/photo_495527.jpeg.webp"></a>
+                <h3>Обнародован гонорар Рахмонова за победу над Ианом Гэрри</h3></div>
+                <div class="wer">
+                    <a href="https://tengrinews.kz/curious/tufli-filma-volshebnik-stranyi-oz-prodali-rekordnuyu-summu-556253/"><img src="https://static.tengrinews.kz/userdata/news/2024/news_556253/thumb_b/photo_495507.png.webp"></a>
+                    <h3>Туфли из фильма “Волшебник страны Оз“ продали за рекордную сумму</h3>
+                
+            </div>
+            <div class="wer">
+                <a href="https://tengrinews.kz/newseducation/ucheniki-mladshih-klassov-astane-budut-uchitsya-556283/"><img src="https://static.tengrinews.kz/userdata/news/2024/news_556283/resize/photo_495540.jpeg.webp"></a>
+                <h3>Ученики младших классов в Астане будут учиться дистанционно 9 декабря</h3>
+            </div>
+            <div class="card">
+                <a href="https://tengrinews.kz/newseducation/pobediteli-mejdunarodnyih-olimpiad-budut-poluchat-grantyi-555896/"><img src="https://static.tengrinews.kz/userdata/news/2024/news_555896/resize/photo_495092.png.webp"></a>
+                <h3>Победители международных олимпиад будут получать гранты вне конкурса в Казахстане</h3>
+            </div>
+            <div class="card">
+                <a href="https://tengrisport.kz/trends/blagorodnyiy-postupok-ronaldu-porazil-fanatov-komandyi-556198/"><img src="https://static.tengrinews.kz/userdata/news/2024/news_556198/thumb_m/photo_495441.jpeg.webp"></a>
+                <h3>Благородный поступок Роналду поразил фанатов команды Бензема</h3>
+            </div>
+            <div class="card">
+            
+            <a href="https://tengrinews.kz/article/immunitet-cheloveka-doktor-rasskazal-na-dele-ukrepit-zdorove-2692/"><img src="https://static.tengrinews.kz/userdata/article/2024/article_2692/thumb_b/photo_3901.png.webp"></a>
+            <h3>Иммунитет человека: доктор рассказал, как на самом деле укрепить здоровье</h3>
+        </div>
+        <div class="card">
+         <a href="https://tengrinews.kz/article/ot-dna-legche-ottolknutsya-byivshiy-narkoman-pomogaet-2688/">   <img src="https://static.tengrinews.kz/userdata/article/2024/article_2688/thumb_b/photo_3899.jpeg.webp" alt=""></a>
+            <h3>“От дна легче оттолкнуться“: как бывший наркоман помогает казахстанцам</h3>
+        </div>
+        <div class="card"> 
+            <a href="https://tengrinews.kz/article/shahta-prinimaet-ne-vseh-istorii-rabochih-dgoka-2633/"><img src="https://static.tengrinews.kz/userdata/article/2024/article_2633/thumb_m/photo_3817.jpeg"></a>
+            <h3>"Шахта принимает не всех"
+                Истории Донского горно-обогатительного комбината</h3>
+        </div>
+        <div class="card">
+            <a href="https://tengrinews.kz/article/operatsii-i-reabilitatsiya-v-ramkah-osms-kak-poluchit-2670/"><img src="https://static.tengrinews.kz/userdata/article/2024/article_2670/thumb_m/photo_3868.jpeg"></a>
+            <h3>
+                ОСМС Операции и реабилитация</h3>
+        </div>
+        <div class="card">
+            <a href="https://tengrinews.kz/science/sovershenno-novyiy-sposob-izmereniya-vremeni-nashli-uchenyie-554930/"><img src="https://static.tengrinews.kz/userdata/news/2024/news_554930/thumb_b/photo_494026.jpeg.webp"></a>
+            <h3>Совершенно новый способ измерения времени нашли ученые</h3>
+        </div>
+            <div class="card">
+                <div class="card">
+                    <a href="https://tengrinews.kz/science/silnaya-magnitnaya-burya-nakryila-zemlyu-539844/"><img src="https://static.tengrinews.kz/userdata/news/2024/news_539844/thumb_b/photo_477180.jpeg.webp"></a>
+                    <h3>Сильная магнитная буря накрыла Землю</h3>
+                </div>
+        </div>
+    </section>
+    </article>
+    <aside>
+        <h3>Последние новости</h3>
+        <ul>
+           <li><a href="https://tengrinews.kz/kazakhstan_news/skolko-snega-vyipalo-v-almatyi-556261/">Сколько снега выпало в Алматы</a></li>
+           <li><a href="https://tengrisport.kz/tnsport/shavkat-rahmonov-oderjal-sedmuyu-pobedu-v-UFC-556256/">Шавкат Рахмонов одержал седьмую победу в UFC</a></li>
+        </ul>
+        <h3>Популярные темы</h3>
+        <ul>
+            <li><a href="https://horo.mail.ru/">Гороскопы</a></li>
+            <li><a href="https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGRqTVhZU0FtVnVHZ0pGVkNnQVAB?hl=ru&gl=RU&ceid=RU%3Aru">Новости технологий</a></li>
+            <li><a href="https://news.rambler.ru/starlife/">Шоу-бизнес</a></li>
+        </ul>
+    </aside>
+    </aside>
+</main>
+<script>
+    function togglePopup() {
+        const popupMenu = document.getElementById("popup-menu");
+        popupMenu.classList.toggle("active");
+    }
+</script>
+
+    <footer>
+        <div class="contacts">
+            <h3>Контакты</h3>
+            <ul>
+                <li>Телефон: <a href="tel:+77001234567"class="io">+7 (700) 123-45-67</a></li>
+                <li>Email: <a href="mailto:info@24news.kz"class="io">info@24news.kz</a></li>
+                <li>Адрес: г. Алматы, ул. Абая, 123</li>
+                <li>Социальные сети:
+                    <a href="https://www.instagram.com/24news_kz" target="_blank"class="io"><img src="C:\Users\user\Downloads\instagram (1).png"width="20px"height="20px"></a>
+                    <a href="https://in.linkedin.com/company/24-news" target="_blank"class="io"><img src="C:\Users\user\Downloads\linkedin.png"width="20px"height="20px"></a>
+                </li>
+            </ul>
+        </div>
+        <p>© 2024 Новости Казахстана. Все права защищены.</p>
+    </footer>
+    
+        </footer>
+</body>
+</html
